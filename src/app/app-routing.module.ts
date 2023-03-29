@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
+import { ClienteCreateComponent } from './components/cliente/cliente-create/cliente-create.component';
+import { ClienteDeleteComponent } from './components/cliente/cliente-delete/cliente-delete.component';
+import { ClienteListComponent } from './components/cliente/cliente-list/cliente-list.component';
+import { ClienteUpdateComponent } from './components/cliente/cliente-update/cliente-update.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavComponent } from './components/nav/nav.component';
@@ -17,7 +21,13 @@ const routes: Routes = [
       { path: 'tecnicos', component: TecnicoListComponent },
       { path: 'tecnicos/create', component: TecnicoCreateComponent },
       { path: 'tecnicos/update/:id', component: TecnicoUpdateComponent }, // :id variavel id pro update
-      { path: 'tecnicos/delete/:id', component: TecnicoDeleteComponent } // :id variavel id pro update
+      { path: 'tecnicos/delete/:id', component: TecnicoDeleteComponent }, // :id variavel id pro update
+
+      { path: 'home', component: HomeComponent },
+      { path: 'clientes', component: ClienteListComponent },
+      { path: 'clientes/create', component: ClienteCreateComponent },
+      { path: 'clientes/update/:id', component: ClienteUpdateComponent }, // :id variavel id pro update
+      { path: 'clientes/delete/:id', component: ClienteDeleteComponent } // :id variavel id pro update
 
     ]
   }
