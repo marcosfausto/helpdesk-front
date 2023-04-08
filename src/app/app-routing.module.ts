@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
+import { ChamadoCreateComponent } from './components/chamado/chamado-create/chamado-create.component';
 import { ChamadoListComponent } from './components/chamado/chamado-list/chamado-list.component';
 import { ClienteCreateComponent } from './components/cliente/cliente-create/cliente-create.component';
 import { ClienteDeleteComponent } from './components/cliente/cliente-delete/cliente-delete.component';
@@ -30,7 +31,9 @@ const routes: Routes = [
       { path: 'clientes/update/:id', component: ClienteUpdateComponent }, // :id variavel id pro update
       { path: 'clientes/delete/:id', component: ClienteDeleteComponent }, // :id variavel id pro update
 
-      { path: 'chamados', component: ChamadoListComponent } // :id variavel id pro update
+      { path: 'chamados', component: ChamadoListComponent }, // :id variavel id pro update
+      { path: 'chamados/create', component: ChamadoCreateComponent } 
+
 
 
     ]
