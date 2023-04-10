@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ChamadoService } from 'src/app/services/chamado.service';
 import { ClienteService } from 'src/app/services/cliente.service';
@@ -43,20 +43,44 @@ export class ChamadoUpdateComponent implements OnInit {
     private chamadoService: ChamadoService,
     private tecnicoService: TecnicoService,
     private toastrService: ToastrService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.findAllClientes();
     this.findAllTecnicos();
+    this.chamado.id = this.route.snapshot.paramMap.get('id');
+    this.findById();
   }
 
   create(): void {
     this.chamadoService.create(this.chamado).subscribe(resposta => {
-      this.toastrService.success('Chamado criado com sucesso', 'Novo chamado');
+      this.toastrService.success('Chamado atualizado com sucesso', 'Atualizar chamado');
       this.router.navigate(['chamados']);
     }, ex => {
       this.toastrService.error(ex.error.error);
+    })
+  }
+
+  update(): void {
+    this.chamadoService.update(this.chamado).subscribe(() => {
+      this.toastrService.success('Chamado atualizado com sucesso', 'Update');
+      this.router.navigate(['chamados'])
+    }, ex => {
+      if (ex.error.errors) {
+        ex.error.errors.forEach(element => {
+          this.toastrService.error(element.message);
+        });
+      } else {
+        this.toastrService.error(ex.error.message);
+      }
+    })
+  }
+
+  findById(): void {
+    this.chamadoService.findById(this.chamado.id).subscribe(resposta => {
+      this.chamado = resposta;
     })
   }
 
@@ -80,6 +104,27 @@ export class ChamadoUpdateComponent implements OnInit {
     return this.prioridade.valid && this.status.valid &&
     this.titulo.valid && this.observacoes.valid &&
     this.tecnico.valid && this.cliente.valid;
+  }
+
+  retornaStatus(status: any): string {
+    if (status == 0) {
+      return 'ABERTO';
+    } else if (status == 1) {
+      return 'EM ANDAMENTO';
+    } else {
+      return 'FECHADO';
+    }
+  }
+
+  
+  retornaPrioridade(prioridade: any): string {
+    if (prioridade == 0) {
+      return 'BAIXA';
+    } else if (prioridade == 1) {
+      return 'MÉDIA';
+    } else {
+      return 'ALTA';
+    }
   }
 
 }
