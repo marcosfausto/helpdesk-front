@@ -16,13 +16,13 @@ export class NavComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.router.navigate(['chamados/read/1'])
+    this.router.navigate(['home'])
   }
 
   logout() {
     this.router.navigate(['login'])
     this.authService.logout();
-    this.toastr.info('Logout feito com sucesso!','Logout',{ timeOut: 7000 });
+    this.toastr.info('Logout feito com sucesso!','Logout',{ timeOut: 4000 });
   }
 
 }
